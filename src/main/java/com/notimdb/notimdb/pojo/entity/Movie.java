@@ -1,8 +1,10 @@
 package com.notimdb.notimdb.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "movie")
@@ -16,16 +18,22 @@ public class Movie {
     private Double rating;
     private String posterUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "director_id")
+    @JsonBackReference
+    private Director director;
+
     public Movie() {
     }
 
-    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl) {
+    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
         this.rating = rating;
         this.posterUrl = posterUrl;
+        this.director = director;
     }
 
     public Integer getId() {
