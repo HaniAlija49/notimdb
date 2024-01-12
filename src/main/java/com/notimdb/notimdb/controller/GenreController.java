@@ -1,7 +1,7 @@
 package com.notimdb.notimdb.controller;
 
-import com.notimdb.notimdb.pojo.entity.Director;
-import com.notimdb.notimdb.repository.DirectorRepository;
+import com.notimdb.notimdb.pojo.entity.Genre;
+import com.notimdb.notimdb.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +18,14 @@ public class GenreController {
     }
 
     @GetMapping("/genres/{id}")
-    public Director getGenreById(@PathVariable Integer id){
+    public Genre getGenreById(@PathVariable Integer id){
         return genreRepository.findById(id).orElse(null);
     }
 
     @PostMapping("/genres")
     public Genre createGenre(@RequestBody Genre newGenre) {
         Genre genre = new Genre();
-        genre.setName(newGenre.getFirstName());
+        genre.setName(newGenre.getName());
         return genreRepository.save(genre);
     }
 }
