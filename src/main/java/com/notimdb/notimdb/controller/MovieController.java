@@ -41,7 +41,6 @@ public class MovieController {
         movie.setPosterUrl(newMovie.getPosterUrl());
         Director director = directorRepository.findById(newMovie.getDirectorId()).orElse(null);
         movie.setDirector(director);
-
         return movieService.createMovie(movie);
     }
     @PutMapping("/movies/{id}")
