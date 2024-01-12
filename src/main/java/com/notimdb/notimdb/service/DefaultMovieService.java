@@ -15,6 +15,7 @@ public class DefaultMovieService implements MovieService{
 
     @Override
     public List<Movie> getAllMovies() {
+
         return (List<Movie>) movieRepository.findAll();
     }
 
@@ -47,4 +48,5 @@ public class DefaultMovieService implements MovieService{
         }
         return movie;
     }
+
 }

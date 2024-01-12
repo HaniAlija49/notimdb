@@ -1,8 +1,10 @@
 package com.notimdb.notimdb.controller;
 
+import com.notimdb.notimdb.pojo.dto.MovieCreateRequest;
 import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
+import com.notimdb.notimdb.pojo.entity.Director;
 import com.notimdb.notimdb.pojo.entity.Movie;
-import com.notimdb.notimdb.repository.MovieRepository;
+import com.notimdb.notimdb.repository.DirectorRepository;
 import com.notimdb.notimdb.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 public class MovieController {
-    @Autowired
     MovieService movieService;
+    DirectorRepository directorRepository;
+
+    @Autowired
+    public MovieController(MovieService movieService,DirectorRepository directorRepository) {
+        this.movieService = movieService;
+        this.directorRepository = directorRepository;
+    }
 
     @GetMapping("/movies")
     public List<Movie> getAllMovies() {
@@ -23,7 +31,7 @@ public class MovieController {
     }
 
     @PostMapping("/movies")
-    public Movie createStudent(@RequestBody Movie newMovie) {
+    public Movie createMovie(@RequestBody MovieCreateRequest newMovie) {
         Movie movie = new Movie();
         movie.setTitle(newMovie.getTitle());
         movie.setReleaseDate(newMovie.getReleaseDate());
@@ -31,6 +39,8 @@ public class MovieController {
         movie.setRating(newMovie.getRating());
         movie.setTitle(newMovie.getTitle());
         movie.setPosterUrl(newMovie.getPosterUrl());
+        Director director = directorRepository.findById(newMovie.getDirectorId()).orElse(null);
+        movie.setDirector(director);
 
         return movieService.createMovie(movie);
     }

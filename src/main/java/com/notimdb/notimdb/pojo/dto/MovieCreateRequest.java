@@ -1,47 +1,25 @@
-package com.notimdb.notimdb.pojo.entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+package com.notimdb.notimdb.pojo.dto;
 
 import java.time.LocalDate;
-import java.util.Set;
 
-@Entity
-@Table(name = "movie")
-public class Movie {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class MovieCreateRequest {
     private String title;
     private LocalDate releaseDate;
     private String description;
     private Double rating;
     private String posterUrl;
+    private Integer directorId;
 
-    @ManyToOne
-    @JoinColumn(name = "director_id")
-    @JsonBackReference
-    private Director director;
-
-    public Movie() {
+    public MovieCreateRequest() {
     }
 
-    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director) {
-        this.id = id;
+    public MovieCreateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
         this.rating = rating;
         this.posterUrl = posterUrl;
-        this.director = director;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.directorId = directorId;
     }
 
     public String getTitle() {
@@ -84,11 +62,11 @@ public class Movie {
         this.posterUrl = posterUrl;
     }
 
-    public Director getDirector() {
-        return director;
+    public Integer getDirectorId() {
+        return directorId;
     }
 
-    public void setDirector(Director director) {
-        this.director = director;
+    public void setDirectorId(Integer directorId) {
+        this.directorId = directorId;
     }
 }

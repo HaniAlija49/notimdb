@@ -9,19 +9,21 @@ public class MovieUpdateRequest {
         private String description;
         private double rating;
         private String posterUrl;
+    private Integer directorId;
 
         // Constructors, getters, and setters
 
         public MovieUpdateRequest() {
         }
 
-        public MovieUpdateRequest(String title, LocalDate releaseDate, String description, double rating, String posterUrl) {
-            this.title = title;
-            this.releaseDate = releaseDate;
-            this.description = description;
-            this.rating = rating;
-            this.posterUrl = posterUrl;
-        }
+    public MovieUpdateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId) {
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.description = description;
+        this.rating = rating;
+        this.posterUrl = posterUrl;
+        this.directorId = directorId;
+    }
 
         // Getters and setters
 
@@ -64,4 +66,12 @@ public class MovieUpdateRequest {
         public void setPosterUrl(String posterUrl) {
             this.posterUrl = posterUrl;
         }
+
+    public Integer getDirectorId() {
+        return directorId;
+    }
+
+    public void setDirectorId(Integer directorId) {
+        this.directorId = directorId;
+    }
 }
