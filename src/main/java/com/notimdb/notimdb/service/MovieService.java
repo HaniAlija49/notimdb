@@ -1,5 +1,7 @@
 package com.notimdb.notimdb.service;
 
+import com.notimdb.notimdb.pojo.entity.Movie;
+
 import java.util.List;
 
 public interface MovieService {

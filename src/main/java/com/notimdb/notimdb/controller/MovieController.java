@@ -1,22 +1,24 @@
 package com.notimdb.notimdb.controller;
 
 import com.notimdb.notimdb.pojo.entity.Movie;
+import com.notimdb.notimdb.repository.MovieRepository;
+import com.notimdb.notimdb.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 public class MovieController {
-@Autowired
-    private MovieRepository movieRepository;
+    @Autowired
+    MovieService movieService;
 
     @GetMapping("/movies")
     public List<Movie> getAllMovies() {
-        return MovieService.findAll();
+        return movieService.getAllMovies();
     }
     @GetMapping("/movies/{id}")
     public Movie getMovieById(@PathVariable int id){
-        return MovieService.getMovieById(id);
+        return movieService.getMovieById(id);
     }
 
     @PostMapping("/movies")
@@ -29,6 +31,6 @@ public class MovieController {
         movie.setTitle(newMovie.getTitle());
         movie.setPosterUrl(newMovie.getPosterUrl());
 
-        return MovieServie.CreateMovie(movie);
+        return movieService.createMovie(movie);
     }
 }
