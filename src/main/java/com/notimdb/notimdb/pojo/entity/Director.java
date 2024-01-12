@@ -1,5 +1,6 @@
 package com.notimdb.notimdb.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class Director {
     private String nationality;
 
     @OneToMany(mappedBy = "director")
+    @JsonManagedReference
     private Set<Movie> movies;
 
     public Director() {

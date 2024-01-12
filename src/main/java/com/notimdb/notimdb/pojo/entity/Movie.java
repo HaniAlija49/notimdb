@@ -1,6 +1,7 @@
 package com.notimdb.notimdb.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "director_id")
-    @JsonBackReference
+    @JsonIgnoreProperties("movies")  // Use this annotation to prevent infinite recursion
     private Director director;
 
     public Movie() {

@@ -24,7 +24,7 @@ public class DirectorController {
     }
 
     @PostMapping("/directors")
-    public Director createStudent(@RequestBody Director newDirector) {
+    public Director createDirector(@RequestBody Director newDirector) {
         Director director = new Director();
         director.setFirstName(newDirector.getFirstName());
        director.setLastName(newDirector.getLastName());
