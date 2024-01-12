@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,10 +24,16 @@ public class Movie {
     @JsonBackReference
     private Director director;
 
+    @ManyToMany
+    @JoinTable(name = "movie_genres",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private Set<Genre> genres;
+
     public Movie() {
     }
 
-    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director) {
+    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director, Set<Genre> genres) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -34,6 +41,7 @@ public class Movie {
         this.rating = rating;
         this.posterUrl = posterUrl;
         this.director = director;
+        this.genres = genres;
     }
 
     public Integer getId() {
@@ -90,5 +98,13 @@ public class Movie {
 
     public void setDirector(Director director) {
         this.director = director;
+    }
+
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
     }
 }
