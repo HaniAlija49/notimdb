@@ -1,5 +1,6 @@
 package com.notimdb.notimdb.controller;
 
+import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
 import com.notimdb.notimdb.pojo.entity.Movie;
 import com.notimdb.notimdb.repository.MovieRepository;
 import com.notimdb.notimdb.service.MovieService;
@@ -32,5 +33,14 @@ public class MovieController {
         movie.setPosterUrl(newMovie.getPosterUrl());
 
         return movieService.createMovie(movie);
+    }
+    @PutMapping("/movies/{id}")
+    public Movie update(
+            @PathVariable Integer id,
+            @RequestBody MovieUpdateRequest request) {
+
+
+
+        return movieService.updateMovie(id,request);
     }
 }

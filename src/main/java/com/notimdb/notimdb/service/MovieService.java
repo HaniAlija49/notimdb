@@ -1,5 +1,6 @@
 package com.notimdb.notimdb.service;
 
+import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
 import com.notimdb.notimdb.pojo.entity.Movie;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface MovieService {
     Movie createMovie(Movie movie);
 
     void deleteMovie(Integer id);
+
+    Movie updateMovie(Integer id, MovieUpdateRequest request);
 
 }
