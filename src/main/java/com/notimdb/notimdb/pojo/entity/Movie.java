@@ -29,7 +29,7 @@ public class Movie {
     @JoinTable(name = "movie_genres",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
 
     public Movie() {
     }
@@ -108,4 +108,5 @@ public class Movie {
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.notimdb.notimdb.controller;
 
+import com.notimdb.notimdb.pojo.dto.GenreCreateRequest;
 import com.notimdb.notimdb.pojo.entity.Genre;
 import com.notimdb.notimdb.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class GenreController {
     }
 
     @PostMapping("/genres")
-    public Genre createGenre(@RequestBody Genre newGenre) {
+    public Genre createGenre(@RequestBody GenreCreateRequest newGenre) {
         Genre genre = new Genre();
         genre.setName(newGenre.getName());
         return genreRepository.save(genre);

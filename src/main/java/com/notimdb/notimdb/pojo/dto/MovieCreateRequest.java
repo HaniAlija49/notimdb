@@ -1,6 +1,9 @@
 package com.notimdb.notimdb.pojo.dto;
 
+import com.notimdb.notimdb.pojo.entity.Genre;
+
 import java.time.LocalDate;
+import java.util.Set;
 
 public class MovieCreateRequest {
     private String title;
@@ -9,17 +12,19 @@ public class MovieCreateRequest {
     private Double rating;
     private String posterUrl;
     private Integer directorId;
+    private Set<Integer> genresIds;
 
     public MovieCreateRequest() {
     }
 
-    public MovieCreateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId) {
+    public MovieCreateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId, Set<Integer> genresIds) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
         this.rating = rating;
         this.posterUrl = posterUrl;
         this.directorId = directorId;
+        this.genresIds = genresIds;
     }
 
     public String getTitle() {
@@ -68,5 +73,13 @@ public class MovieCreateRequest {
 
     public void setDirectorId(Integer directorId) {
         this.directorId = directorId;
+    }
+
+    public Set<Integer> getGenresIds() {
+        return genresIds;
+    }
+
+    public void setGenresIds(Set<Integer> genresIds) {
+        this.genresIds = genresIds;
     }
 }
