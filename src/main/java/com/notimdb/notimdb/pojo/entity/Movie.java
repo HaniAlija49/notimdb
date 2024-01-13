@@ -2,6 +2,7 @@ package com.notimdb.notimdb.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -36,6 +37,11 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
     private Set<Actor> actors = new HashSet<>();
+
+    @OneToMany(mappedBy = "movie")
+    @JsonManagedReference
+    private Set<Review> reviews;
+
     public Movie() {
     }
 
