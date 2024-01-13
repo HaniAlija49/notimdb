@@ -22,14 +22,14 @@ public class MovieController {
     MovieService movieService;
     DirectorRepository directorRepository;
     GenreRepository genreRepository;
-
     ActorRepository actorRepository;
 
     @Autowired
-    public MovieController(MovieService movieService,DirectorRepository directorRepository,GenreRepository genreRepository) {
+    public MovieController(MovieService movieService,DirectorRepository directorRepository,GenreRepository genreRepository,ActorRepository actorRepository) {
         this.movieService = movieService;
         this.directorRepository = directorRepository;
         this.genreRepository=genreRepository;
+        this.actorRepository=actorRepository;
     }
 
     @GetMapping("/movies")
@@ -59,7 +59,7 @@ public class MovieController {
         }
         movie.setGenres(genres);
         Set<Actor> actors = new HashSet<>();
-        for (Integer id:newMovie.getActorIds()) {
+        for (Integer id:newMovie.getActorsIds()) {
             Actor actor = actorRepository.findById(id).orElse(null);
             actors.add(actor);
         }

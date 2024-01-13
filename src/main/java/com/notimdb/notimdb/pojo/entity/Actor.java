@@ -1,8 +1,9 @@
 package com.notimdb.notimdb.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class Actor {
     private String nationality;
 
     @ManyToMany(mappedBy = "actors")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Movie> movies;
 
     public Actor() {
