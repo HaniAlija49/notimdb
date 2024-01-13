@@ -45,7 +45,7 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director, Set<Genre> genres, Set<Actor> actors) {
+    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director, Set<Genre> genres, Set<Actor> actors, Set<Review> reviews) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -55,6 +55,7 @@ public class Movie {
         this.director = director;
         this.genres = genres;
         this.actors = actors;
+        this.reviews = reviews;
     }
 
     public Integer getId() {
@@ -127,5 +128,13 @@ public class Movie {
 
     public void setActors(Set<Actor> actors) {
         this.actors = actors;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
 }

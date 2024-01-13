@@ -2,13 +2,11 @@ package com.notimdb.notimdb.controller;
 
 import com.notimdb.notimdb.pojo.dto.MovieCreateRequest;
 import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
-import com.notimdb.notimdb.pojo.entity.Actor;
-import com.notimdb.notimdb.pojo.entity.Director;
-import com.notimdb.notimdb.pojo.entity.Genre;
-import com.notimdb.notimdb.pojo.entity.Movie;
+import com.notimdb.notimdb.pojo.entity.*;
 import com.notimdb.notimdb.repository.ActorRepository;
 import com.notimdb.notimdb.repository.DirectorRepository;
 import com.notimdb.notimdb.repository.GenreRepository;
+import com.notimdb.notimdb.repository.ReviewRepository;
 import com.notimdb.notimdb.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +65,7 @@ public class MovieController {
         }
         movie.setActors(actors);
         Set<Review> reviews = new HashSet<>();
-        for (Integer id:newMovie.getReviewsIds()) {
+        for (Integer id:newMovie.getReviewIds()) {
             Review review = reviewRepository.findById(id).orElse(null);
             reviews.add(review);
         }
@@ -79,8 +77,6 @@ public class MovieController {
     public Movie update(
             @PathVariable Integer id,
             @RequestBody MovieUpdateRequest request) {
-
-
 
         return movieService.updateMovie(id,request);
     }

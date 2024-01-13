@@ -1,6 +1,7 @@
 package com.notimdb.notimdb.pojo.dto;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 public class MovieUpdateRequest {
 
@@ -10,22 +11,28 @@ public class MovieUpdateRequest {
         private double rating;
         private String posterUrl;
     private Integer directorId;
+    private Set<Integer> genresIds;
+    private Set<Integer> actorsIds;
+    private Set<Integer> reviewIds;
 
         // Constructors, getters, and setters
 
         public MovieUpdateRequest() {
         }
 
-    public MovieUpdateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId) {
+    public MovieUpdateRequest(String title, LocalDate releaseDate, String description, double rating, String posterUrl, Integer directorId, Set<Integer> genresIds, Set<Integer> actorsIds, Set<Integer> reviewIds) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
         this.rating = rating;
         this.posterUrl = posterUrl;
         this.directorId = directorId;
+        this.genresIds = genresIds;
+        this.actorsIds = actorsIds;
+        this.reviewIds = reviewIds;
     }
 
-        // Getters and setters
+    // Getters and setters
 
         public String getTitle() {
             return title;
@@ -73,5 +80,29 @@ public class MovieUpdateRequest {
 
     public void setDirectorId(Integer directorId) {
         this.directorId = directorId;
+    }
+
+    public Set<Integer> getGenresIds() {
+        return genresIds;
+    }
+
+    public void setGenresIds(Set<Integer> genresIds) {
+        this.genresIds = genresIds;
+    }
+
+    public Set<Integer> getActorsIds() {
+        return actorsIds;
+    }
+
+    public void setActorsIds(Set<Integer> actorsIds) {
+        this.actorsIds = actorsIds;
+    }
+
+    public Set<Integer> getReviewIds() {
+        return reviewIds;
+    }
+
+    public void setReviewIds(Set<Integer> reviewIds) {
+        this.reviewIds = reviewIds;
     }
 }
