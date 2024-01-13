@@ -23,13 +23,15 @@ public class MovieController {
     DirectorRepository directorRepository;
     GenreRepository genreRepository;
     ActorRepository actorRepository;
+    ReviewRepository reviewRepository;
 
     @Autowired
-    public MovieController(MovieService movieService,DirectorRepository directorRepository,GenreRepository genreRepository,ActorRepository actorRepository) {
+    public MovieController(MovieService movieService,DirectorRepository directorRepository,GenreRepository genreRepository,ActorRepository actorRepository,ReviewRepository reviewRepository) {
         this.movieService = movieService;
         this.directorRepository = directorRepository;
         this.genreRepository=genreRepository;
         this.actorRepository=actorRepository;
+        this.reviewRepository=reviewRepository;
     }
 
     @GetMapping("/movies")
@@ -64,6 +66,13 @@ public class MovieController {
             actors.add(actor);
         }
         movie.setActors(actors);
+        Set<Review> reviews = new HashSet<>();
+        for (Integer id:newMovie.getReviewsIds()) {
+            Review review = reviewRepository.findById(id).orElse(null);
+            reviews.add(review);
+        }
+        movie.setReviews(reviews);
+
         return movieService.createMovie(movie);
     }
     @PutMapping("/movies/{id}")
