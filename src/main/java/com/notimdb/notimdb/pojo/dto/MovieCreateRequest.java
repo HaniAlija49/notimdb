@@ -13,11 +13,12 @@ public class MovieCreateRequest {
     private String posterUrl;
     private Integer directorId;
     private Set<Integer> genresIds;
+    private Set<Integer> actorIds;
 
     public MovieCreateRequest() {
     }
 
-    public MovieCreateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId, Set<Integer> genresIds) {
+    public MovieCreateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId, Set<Integer> genresIds, Set<Integer> actorIds) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
@@ -25,6 +26,7 @@ public class MovieCreateRequest {
         this.posterUrl = posterUrl;
         this.directorId = directorId;
         this.genresIds = genresIds;
+        this.actorIds = actorIds;
     }
 
     public String getTitle() {
@@ -81,5 +83,13 @@ public class MovieCreateRequest {
 
     public void setGenresIds(Set<Integer> genresIds) {
         this.genresIds = genresIds;
+    }
+
+    public Set<Integer> getActorIds() {
+        return actorIds;
+    }
+
+    public void setActorIds(Set<Integer> actorIds) {
+        this.actorIds = actorIds;
     }
 }
