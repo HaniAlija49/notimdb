@@ -2,9 +2,11 @@ package com.notimdb.notimdb.controller;
 
 import com.notimdb.notimdb.pojo.dto.MovieCreateRequest;
 import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
+import com.notimdb.notimdb.pojo.entity.Actor;
 import com.notimdb.notimdb.pojo.entity.Director;
 import com.notimdb.notimdb.pojo.entity.Genre;
 import com.notimdb.notimdb.pojo.entity.Movie;
+import com.notimdb.notimdb.repository.ActorRepository;
 import com.notimdb.notimdb.repository.DirectorRepository;
 import com.notimdb.notimdb.repository.GenreRepository;
 import com.notimdb.notimdb.service.MovieService;
@@ -20,6 +22,8 @@ public class MovieController {
     MovieService movieService;
     DirectorRepository directorRepository;
     GenreRepository genreRepository;
+
+    ActorRepository actorRepository;
 
     @Autowired
     public MovieController(MovieService movieService,DirectorRepository directorRepository,GenreRepository genreRepository) {
@@ -54,6 +58,12 @@ public class MovieController {
             genres.add(genre);
         }
         movie.setGenres(genres);
+        Set<Actor> actors = new HashSet<>();
+        for (Integer id:newMovie.getActorIds()) {
+            Actor actor = actorRepository.findById(id).orElse(null);
+            actors.add(actor);
+        }
+        movie.setActors(actors);
         return movieService.createMovie(movie);
     }
     @PutMapping("/movies/{id}")
