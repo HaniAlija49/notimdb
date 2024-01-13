@@ -27,11 +27,12 @@ public class Review {
     public Review() {
     }
 
-    public Review(Integer id, Double rating, String comment, Movie movie) {
+    public Review(Integer id, Double rating, String comment, Movie movie, User user) {
         this.id = id;
         this.rating = rating;
         this.comment = comment;
         this.movie = movie;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -64,5 +65,13 @@ public class Review {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
