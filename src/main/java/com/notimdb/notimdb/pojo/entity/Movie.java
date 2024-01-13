@@ -31,10 +31,15 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<Genre> genres = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "movie_actors",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    private Set<Actor> actors = new HashSet<>();
     public Movie() {
     }
 
-    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director, Set<Genre> genres) {
+    public Movie(Integer id, String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Director director, Set<Genre> genres, Set<Actor> actors) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -43,6 +48,7 @@ public class Movie {
         this.posterUrl = posterUrl;
         this.director = director;
         this.genres = genres;
+        this.actors = actors;
     }
 
     public Integer getId() {
@@ -109,4 +115,11 @@ public class Movie {
         this.genres = genres;
     }
 
+    public Set<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
+    }
 }
