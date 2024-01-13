@@ -1,14 +1,18 @@
 package com.notimdb.notimdb.controller;
 
+import com.notimdb.notimdb.pojo.dto.CreateReviewFromUser;
+import com.notimdb.notimdb.pojo.dto.CreateReviewRequest;
 import com.notimdb.notimdb.pojo.dto.CreateUserRequest;
+import com.notimdb.notimdb.pojo.entity.Movie;
+import com.notimdb.notimdb.pojo.entity.Review;
 import com.notimdb.notimdb.pojo.entity.User;
+import com.notimdb.notimdb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
 public class UserController {
     @Autowired
     private final UserService userService;
@@ -19,17 +23,17 @@ public class UserController {
     }
 
 
-    @GetMapping
+    @GetMapping("/users")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public User getUserById(@PathVariable Integer id) {
         return userService.getUserById(id);
     }
 
-    @PostMapping
+    @PostMapping("/users")
     public User createUser(@RequestBody CreateUserRequest newUserRequest) {
         User user = new User();
         user.setUsername(newUserRequest.getUsername());
@@ -37,8 +41,13 @@ public class UserController {
 
         return userService.addUser(user);
     }
+    @PostMapping("/users/movie/{id}")
+    public Movie addMovieReview(@PathVariable Integer id, @RequestBody CreateReviewFromUser newReview) {
 
-    @DeleteMapping("/{id}")
+        return userService.addMovieReview(id,newReview);
+    }
+
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
     }

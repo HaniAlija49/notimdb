@@ -1,19 +1,18 @@
 package com.notimdb.notimdb.pojo.dto;
 
-public class CreateReviewRequest {
+public class CreateReviewFromUser {
     private Double rating;
 
     private String comment;
-    private Integer movieId;
+
     private Integer userId;
 
-    public CreateReviewRequest() {
+    public CreateReviewFromUser() {
     }
 
-    public CreateReviewRequest(Double rating, String comment, Integer movieId, Integer userId) {
+    public CreateReviewFromUser(Double rating, String comment, Integer userId) {
         this.rating = rating;
         this.comment = comment;
-        this.movieId = movieId;
         this.userId = userId;
     }
 
@@ -31,14 +30,6 @@ public class CreateReviewRequest {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public Integer getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Integer movieId) {
-        this.movieId = movieId;
     }
 
     public Integer getUserId() {

@@ -1,15 +1,29 @@
 package com.notimdb.notimdb.service;
 
+import com.notimdb.notimdb.pojo.dto.CreateReviewFromUser;
+import com.notimdb.notimdb.pojo.dto.CreateReviewRequest;
+import com.notimdb.notimdb.pojo.entity.Movie;
+import com.notimdb.notimdb.pojo.entity.Review;
 import com.notimdb.notimdb.pojo.entity.User;
+import com.notimdb.notimdb.repository.MovieRepository;
+import com.notimdb.notimdb.repository.ReviewRepository;
 import com.notimdb.notimdb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class DefaultUserService implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private MovieRepository movieRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
     @Override
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
@@ -24,6 +38,41 @@ public class DefaultUserService implements UserService {
     public User addUser(User user) {
         return userRepository.save(user);
     }
+
+    @Override
+    public Movie addMovieReview(Integer id, CreateReviewFromUser newReview) {
+        Movie movie = movieRepository.findById(id).orElse(null);
+
+        if (movie != null) {
+            Set<Review> reviewsWithMovieId = new HashSet<>();
+            Iterable<Review> allReviews = reviewRepository.findAll();
+
+            for (Review r : allReviews) {
+                if (r.getMovie().getId() == movie.getId()) {
+                    reviewsWithMovieId.add(r);
+                }
+            }
+
+            User user = userRepository.findById(newReview.getUserId()).orElse(null);
+
+            Review review = new Review();
+            review.setRating(newReview.getRating());
+            review.setComment(newReview.getComment());
+            review.setMovie(movie);
+            review.setUser(user);
+
+
+            reviewsWithMovieId.add(review);
+            movie.setReviews(reviewsWithMovieId);
+
+            // Assuming movieRepository.save(movie) is used to persist changes
+            reviewRepository.save(review);
+        }
+
+        return movie;
+    }
+
+
 
     @Override
     public void deleteUser(Integer id) {

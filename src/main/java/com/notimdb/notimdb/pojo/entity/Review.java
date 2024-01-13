@@ -1,5 +1,6 @@
 package com.notimdb.notimdb.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -16,12 +17,12 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    @JsonIgnoreProperties("reviews")
+    @JsonBackReference
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("reviews")
+    @JsonBackReference
     private User user;
 
     public Review() {
@@ -64,5 +65,13 @@ public class Review {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
