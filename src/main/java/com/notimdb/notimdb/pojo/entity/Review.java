@@ -19,6 +19,11 @@ public class Review {
     @JsonIgnoreProperties("reviews")
     private Movie movie;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("reviews")
+    private User user;
+
     public Review() {
     }
 
