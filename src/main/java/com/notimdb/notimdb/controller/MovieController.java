@@ -8,6 +8,7 @@ import com.notimdb.notimdb.repository.DirectorRepository;
 import com.notimdb.notimdb.repository.GenreRepository;
 import com.notimdb.notimdb.repository.ReviewRepository;
 import com.notimdb.notimdb.service.MovieService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,12 +65,12 @@ public class MovieController {
             actors.add(actor);
         }
         movie.setActors(actors);
-        Set<Review> reviews = new HashSet<>();
-        for (Integer id:newMovie.getReviewIds()) {
-            Review review = reviewRepository.findById(id).orElse(null);
-            reviews.add(review);
-        }
-        movie.setReviews(reviews);
+//        Set<Review> reviews = new HashSet<>();
+//        for (Integer id:newMovie.getReviewIds()) {
+//            Review review = reviewRepository.findById(id).orElse(null);
+//            reviews.add(review);
+//        }
+//        movie.setReviews(reviews);
 
         return movieService.createMovie(movie);
     }
@@ -99,5 +100,10 @@ public class MovieController {
     @GetMapping("movies/directors/{id}")
     public List<Movie> getMoviesByDirector(@PathVariable Integer id){
         return movieService.getMovieByDirector(id);
+    }
+
+    @GetMapping("movies/search/{title}")
+    public List<Movie> getMoviesByDirector(@PathVariable(required = false) String title){
+        return movieService.searchMovieByTitle(title);
     }
 }

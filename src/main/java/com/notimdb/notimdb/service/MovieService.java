@@ -22,4 +22,6 @@ public interface MovieService {
 
     List<Movie> getMovieByDirector(Integer id);
 
+    List<Movie> searchMovieByTitle(String title);
+
 }
