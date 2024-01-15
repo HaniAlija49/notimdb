@@ -1,46 +1,22 @@
-package com.notimdb.notimdb.pojo.entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+package com.notimdb.notimdb.pojo.dto;
 
 import java.time.LocalDate;
-import java.util.Set;
 
-@Entity
-@Table(name = "director")
-public class Director {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class DirectorCreateRequest {
 
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
     private String nationality;
 
-    @OneToMany(mappedBy = "director")
-    @JsonBackReference
-    private Set<Movie> movies;
-
-    public Director() {
+    public DirectorCreateRequest() {
     }
 
-    public Director(Integer id, String firstName, String lastName, LocalDate birthDate, String nationality, Set<Movie> movies) {
-        this.id = id;
+    public DirectorCreateRequest(String firstName, String lastName, LocalDate birthDate, String nationality) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.nationality = nationality;
-        this.movies = movies;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -73,13 +49,5 @@ public class Director {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
-    }
-
-    public Set<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
     }
 }

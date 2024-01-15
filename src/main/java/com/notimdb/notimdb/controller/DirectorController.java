@@ -1,5 +1,6 @@
 package com.notimdb.notimdb.controller;
 
+import com.notimdb.notimdb.pojo.dto.DirectorCreateRequest;
 import com.notimdb.notimdb.pojo.entity.Director;
 import com.notimdb.notimdb.pojo.entity.Movie;
 import com.notimdb.notimdb.repository.DirectorRepository;
@@ -24,13 +25,12 @@ public class DirectorController {
     }
 
     @PostMapping("/directors")
-    public Director createDirector(@RequestBody Director newDirector) {
+    public Director createDirector(@RequestBody DirectorCreateRequest newDirector) {
         Director director = new Director();
         director.setFirstName(newDirector.getFirstName());
        director.setLastName(newDirector.getLastName());
        director.setBirthDate(newDirector.getBirthDate());
        director.setNationality(newDirector.getNationality());
-       director.setMovies(newDirector.getMovies());
 
        return directorRepository.save(director);
     }
