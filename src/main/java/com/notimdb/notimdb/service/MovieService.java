@@ -24,4 +24,6 @@ public interface MovieService {
 
     Long getTotalNrOfMovies();
 
+    List<Movie> searchMovieByTitle(String title);
+
 }
