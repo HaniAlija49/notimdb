@@ -86,8 +86,18 @@ public class MovieController {
         movieService.deleteMovie(id);
     }
 
+    @GetMapping("movies/actor/{id}")
+    public List<Movie> getMovieByActor(@PathVariable Integer id){
+        return movieService.getMovieByActor(id);
+    }
+
     @GetMapping("movies/genres/{id}")
     public List<Movie> getMoviesByGenre(@PathVariable Integer id){
         return movieService.getMovieByGenre(id);
+    }
+
+    @GetMapping("movies/directors/{id}")
+    public List<Movie> getMoviesByDirector(@PathVariable Integer id){
+        return movieService.getMovieByDirector(id);
     }
 }

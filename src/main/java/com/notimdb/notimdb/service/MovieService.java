@@ -16,6 +16,10 @@ public interface MovieService {
 
     Movie updateMovie(Integer id, MovieUpdateRequest request);
 
+    List<Movie> getMovieByActor(Integer id);
+
     List<Movie> getMovieByGenre(Integer id);
+
+    List<Movie> getMovieByDirector(Integer id);
 
 }

@@ -86,6 +86,18 @@ public class DefaultMovieService implements MovieService{
     }
 
     @Override
+    public List<Movie> getMovieByActor(Integer id) {
+        Actor actor = actorRepository.findById(id).orElse(null);
+        List<Movie> moviesOfTheActor= new ArrayList<>();
+        for (Movie movie:movieRepository.findAll()) {
+            if (movie.getActors().contains(actor)){
+                moviesOfTheActor.add(movie);
+            }
+        }
+        return moviesOfTheActor;
+    }
+
+    @Override
     public List<Movie> getMovieByGenre(Integer id) {
         Genre genre = genreRepository.findById(id).orElse(null);
         List<Movie> moviesOfGenre = new ArrayList<>();
@@ -95,5 +107,17 @@ public class DefaultMovieService implements MovieService{
             }
         }
         return moviesOfGenre;
+    }
+
+    @Override
+    public List<Movie> getMovieByDirector(Integer id) {
+        Director director = directorRepository.findById(id).orElse(null);
+        List<Movie> moviesOfDirector = new ArrayList<>();
+        for (Movie movie : movieRepository.findAll()) {
+            if (movie.getDirector().equals(director)) {
+                moviesOfDirector.add(movie);
+            }
+        }
+        return moviesOfDirector;
     }
 }
