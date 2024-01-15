@@ -85,16 +85,4 @@ public class DefaultMovieService implements MovieService{
         return movie;
     }
 
-    @Override
-    public List<Movie> getMovieByActor(Integer id) {
-        Actor actor = actorRepository.findById(id).orElse(null);
-        List<Movie> moviesOfTheActor= new ArrayList<>();
-        for (Movie movie:movieRepository.findAll()) {
-            if (movie.getActors().contains(actor)){
-                moviesOfTheActor.add(movie);
-            }
-        }
-        return moviesOfTheActor;
-    }
-
 }
