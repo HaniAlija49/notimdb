@@ -120,6 +120,11 @@ public class DefaultMovieService implements MovieService{
     }
 
     @Override
+    public Long getTotalNrOfMovies() {
+        return movieRepository.count();
+    }
+
+    @Override
     public List<Movie> searchMovieByTitle(String title) {
 
         List<Movie> moviesOfTitle = new ArrayList<>();

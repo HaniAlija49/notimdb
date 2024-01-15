@@ -23,6 +23,8 @@ public interface MovieService {
 
     List<Movie> getMovieByDirector(Integer id);
 
+    Long getTotalNrOfMovies();
+
     List<Movie> searchMovieByTitle(String title);
 
     List<Movie> TopTenMovies (Integer genre);

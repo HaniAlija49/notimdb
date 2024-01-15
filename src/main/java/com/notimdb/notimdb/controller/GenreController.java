@@ -29,4 +29,9 @@ public class GenreController {
         genre.setName(newGenre.getName());
         return genreRepository.save(genre);
     }
+
+    @GetMapping("genres/count")
+    public Long getTotalNrOfGenres(){
+        return genreRepository.count();
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @RestController
@@ -105,6 +106,11 @@ public class MovieController {
     @GetMapping(value = {"/movies/search","movies/search/{title}"})
     public List<Movie> getMoviesByDirector(@PathVariable(required = false) String title){
         return movieService.searchMovieByTitle(title);
+    }
+
+    @GetMapping("movies/count")
+    public Long getTotalNrOfMovies(){
+        return movieService.getTotalNrOfMovies();
     }
     @GetMapping(value = {"/movies/toprated","movies/toprated/{id}"})
     public List<Movie> getTopRated(@PathVariable(required = false) Integer id){
