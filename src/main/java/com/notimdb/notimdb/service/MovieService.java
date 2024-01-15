@@ -16,4 +16,6 @@ public interface MovieService {
 
     Movie updateMovie(Integer id, MovieUpdateRequest request);
 
+    List<Movie> getMovieByGenre(Integer id);
+
 }
