@@ -120,4 +120,9 @@ public class DefaultMovieService implements MovieService{
         }
         return moviesOfDirector;
     }
+
+    @Override
+    public Long getTotalNrOfMovies() {
+        return movieRepository.count();
+    }
 }

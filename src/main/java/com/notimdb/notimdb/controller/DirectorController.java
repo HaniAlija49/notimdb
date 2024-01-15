@@ -34,4 +34,9 @@ public class DirectorController {
 
        return directorRepository.save(director);
     }
+
+    @GetMapping("directors/count")
+    public Long getTotalNrOfDirectors(){
+        return directorRepository.count();
+    }
 }
