@@ -6,6 +6,7 @@ import com.notimdb.notimdb.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,6 +83,18 @@ public class DefaultMovieService implements MovieService{
             movieRepository.save(movie);
         }
         return movie;
+    }
+
+    @Override
+    public List<Movie> getMovieByActor(Integer id) {
+        Actor actor = actorRepository.findById(id).orElse(null);
+        List<Movie> moviesOfTheActor= new ArrayList<>();
+        for (Movie movie:movieRepository.findAll()) {
+            if (movie.getActors().contains(actor)){
+                moviesOfTheActor.add(movie);
+            }
+        }
+        return moviesOfTheActor;
     }
 
 }
