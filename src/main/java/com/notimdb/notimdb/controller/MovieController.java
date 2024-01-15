@@ -91,12 +91,12 @@ public class MovieController {
         return movieService.getMovieByActor(id);
     }
 
-    @GetMapping("movies/genres/{id}")
+    @GetMapping("movies/genre/{id}")
     public List<Movie> getMoviesByGenre(@PathVariable Integer id){
         return movieService.getMovieByGenre(id);
     }
 
-    @GetMapping("movies/directors/{id}")
+    @GetMapping("movies/director/{id}")
     public List<Movie> getMoviesByDirector(@PathVariable Integer id){
         return movieService.getMovieByDirector(id);
     }
