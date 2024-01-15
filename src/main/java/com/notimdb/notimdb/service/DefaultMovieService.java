@@ -6,10 +6,8 @@ import com.notimdb.notimdb.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultMovieService implements MovieService{
@@ -123,13 +121,36 @@ public class DefaultMovieService implements MovieService{
 
     @Override
     public List<Movie> searchMovieByTitle(String title) {
-        List<Movie> moviesOfTitle = new ArrayList<>();
 
+        List<Movie> moviesOfTitle = new ArrayList<>();
+        if (title == null){
+            return moviesOfTitle;
+        }
         for (Movie movie:movieRepository.findAll()) {
-            if (movie.getTitle().contains(title)){
+            if (movie.getTitle().toLowerCase().contains(title.toLowerCase())){
                 moviesOfTitle.add(movie);
             }
         }
         return moviesOfTitle;
+    }
+
+    @Override
+    public List<Movie> TopTenMovies(Integer genre) {
+        List<Movie> movies;
+        if (genre == null) {
+
+            movies = movieRepository.findAll();
+        } else {
+            movies = getMovieByGenre(genre);
+        }
+
+        movies.sort(Comparator.comparing(Movie::getRating).reversed());
+
+        List<Movie> topTenMovies = movies.stream()
+                .limit(10)
+                .collect(Collectors.toList());
+
+        return topTenMovies;
+
     }
 }

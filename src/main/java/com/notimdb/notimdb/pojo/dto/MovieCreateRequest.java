@@ -16,11 +16,11 @@ public class MovieCreateRequest {
     public MovieCreateRequest() {
     }
 
-    public MovieCreateRequest(String title, LocalDate releaseDate, String description, Double rating, String posterUrl, Integer directorId, Set<Integer> genresIds, Set<Integer> actorsIds) {
+    public MovieCreateRequest(String title, LocalDate releaseDate, String description, String posterUrl, Integer directorId, Set<Integer> genresIds, Set<Integer> actorsIds) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
-        this.rating = rating;
+        this.rating = 0.0;
         this.posterUrl = posterUrl;
         this.directorId = directorId;
         this.genresIds = genresIds;

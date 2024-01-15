@@ -46,9 +46,10 @@ public class DefaultUserService implements UserService {
         if (movie != null) {
             Set<Review> reviewsWithMovieId = new HashSet<>();
             Iterable<Review> allReviews = reviewRepository.findAll();
-
+            Double averageRating = 0.0;
             for (Review r : allReviews) {
                 if (r.getMovie().getId() == movie.getId()) {
+                    averageRating += r.getRating();
                     reviewsWithMovieId.add(r);
                 }
             }
@@ -60,9 +61,15 @@ public class DefaultUserService implements UserService {
             review.setComment(newReview.getComment());
             review.setMovie(movie);
             review.setUser(user);
-
-
+            averageRating+= review.getRating();
             reviewsWithMovieId.add(review);
+
+            averageRating /= reviewsWithMovieId.size();
+
+            averageRating = Math.round(averageRating * 10.0) / 10.0;
+
+            movie.setRating(averageRating);
+
             movie.setReviews(reviewsWithMovieId);
 
             // Assuming movieRepository.save(movie) is used to persist changes

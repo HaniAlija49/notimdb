@@ -102,8 +102,12 @@ public class MovieController {
         return movieService.getMovieByDirector(id);
     }
 
-    @GetMapping("movies/search/{title}")
+    @GetMapping(value = {"/movies/search","movies/search/{title}"})
     public List<Movie> getMoviesByDirector(@PathVariable(required = false) String title){
         return movieService.searchMovieByTitle(title);
+    }
+    @GetMapping(value = {"/movies/toprated","movies/toprated/{id}"})
+    public List<Movie> getTopRated(@PathVariable(required = false) Integer id){
+        return movieService.TopTenMovies(id);
     }
 }

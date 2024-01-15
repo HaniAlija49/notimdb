@@ -1,6 +1,7 @@
 package com.notimdb.notimdb.service;
 
 import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
+import com.notimdb.notimdb.pojo.entity.Genre;
 import com.notimdb.notimdb.pojo.entity.Movie;
 
 import java.util.List;
@@ -23,5 +24,8 @@ public interface MovieService {
     List<Movie> getMovieByDirector(Integer id);
 
     List<Movie> searchMovieByTitle(String title);
+
+    List<Movie> TopTenMovies (Integer genre);
+
 
 }
