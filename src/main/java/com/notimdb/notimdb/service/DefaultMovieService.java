@@ -1,5 +1,7 @@
 package com.notimdb.notimdb.service;
 
+import com.notimdb.notimdb.InvalidActorIdException;
+import com.notimdb.notimdb.MovieNotFoundException;
 import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
 import com.notimdb.notimdb.pojo.entity.*;
 import com.notimdb.notimdb.repository.*;
@@ -50,49 +52,67 @@ public class DefaultMovieService implements MovieService{
 
     @Override
     public Movie updateMovie(Integer id, MovieUpdateRequest request) {
-       Movie movie = getMovieById(id);
-        if (movie != null) {
-            movie.setTitle(request.getTitle());
-            movie.setReleaseDate(request.getReleaseDate());
-            movie.setDescription(request.getDescription());
-            movie.setRating(request.getRating());
-            movie.setTitle(request.getTitle());
-            movie.setPosterUrl(request.getPosterUrl());
-            Director director = directorRepository.findById(request.getDirectorId()).orElse(null);
-            movie.setDirector(director);
-            Set<Genre> genres = new HashSet<>();
-            for (Integer reqid:request.getGenresIds()) {
-                Genre genre = genreRepository.findById(reqid).orElse(null);
-                genres.add(genre);
-            }
-            movie.setGenres(genres);
-            Set<Actor> actors = new HashSet<>();
-            for (Integer reqid:request.getActorsIds()) {
-                Actor actor = actorRepository.findById(reqid).orElse(null);
-                actors.add(actor);
-            }
-            movie.setActors(actors);
-            Set<Review> reviews = new HashSet<>();
-            for (Integer reqid:request.getReviewIds()) {
-                Review review = reviewRepository.findById(reqid).orElse(null);
-                reviews.add(review);
-            }
-            movie.setReviews(reviews);
-            movieRepository.save(movie);
-        }
-        return movie;
+
+        try {
+            Movie movie = getMovieById(id);
+           if (movie != null) {
+               movie.setTitle(request.getTitle());
+               movie.setReleaseDate(request.getReleaseDate());
+               movie.setDescription(request.getDescription());
+               movie.setRating(request.getRating());
+               movie.setTitle(request.getTitle());
+               movie.setPosterUrl(request.getPosterUrl());
+               Director director = directorRepository.findById(request.getDirectorId()).orElse(null);
+               movie.setDirector(director);
+               Set<Genre> genres = new HashSet<>();
+               for (Integer reqid : request.getGenresIds()) {
+                   Genre genre = genreRepository.findById(reqid).orElse(null);
+                   genres.add(genre);
+               }
+               movie.setGenres(genres);
+               Set<Actor> actors = new HashSet<>();
+               for (Integer reqid : request.getActorsIds()) {
+                   Actor actor = actorRepository.findById(reqid).orElse(null);
+                   actors.add(actor);
+               }
+               movie.setActors(actors);
+               Set<Review> reviews = new HashSet<>();
+               for (Integer reqid : request.getReviewIds()) {
+                   Review review = reviewRepository.findById(reqid).orElse(null);
+                   reviews.add(review);
+               }
+               movie.setReviews(reviews);
+               movieRepository.save(movie);
+           }
+           else {
+               throw new MovieNotFoundException("Movie with id " + id + " not found.");
+           }
+           return movie;
+       } catch (MovieNotFoundException e) {
+           throw new RuntimeException("Error updating movie with id " + id, e);
+       }
+
     }
 
     @Override
     public List<Movie> getMovieByActor(Integer id) {
-        Actor actor = actorRepository.findById(id).orElse(null);
-        List<Movie> moviesOfTheActor= new ArrayList<>();
-        for (Movie movie:movieRepository.findAll()) {
-            if (movie.getActors().contains(actor)){
-                moviesOfTheActor.add(movie);
+        try {
+            Actor actor = actorRepository.findById(id).orElse(null);
+            if (actor != null) {
+                List<Movie> moviesOfTheActor = new ArrayList<>();
+                for (Movie movie : movieRepository.findAll()) {
+                    if (movie.getActors().contains(actor)) {
+                        moviesOfTheActor.add(movie);
+                    }
+                }
+                return moviesOfTheActor;
             }
+            else {
+                throw new InvalidActorIdException("Invalid actor id: " + id);
+            }
+        }catch (InvalidActorIdException e) {
+            throw new RuntimeException("Error fetching movies by actor with id " + id, e);
         }
-        return moviesOfTheActor;
     }
 
     @Override
