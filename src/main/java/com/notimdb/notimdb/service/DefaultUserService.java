@@ -41,40 +41,39 @@ public class DefaultUserService implements UserService {
 
     @Override
     public Movie addMovieReview(Integer id, CreateReviewFromUser newReview) {
-        Movie movie = movieRepository.findById(id).orElse(null);
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Movie with ID " + id + " not found"));
 
-        if (movie != null) {
-            Set<Review> reviewsWithMovieId = new HashSet<>();
-            Iterable<Review> allReviews = reviewRepository.findAll();
-            Double averageRating = 0.0;
-            for (Review r : allReviews) {
-                if (r.getMovie().getId() == movie.getId()) {
-                    averageRating += r.getRating();
-                    reviewsWithMovieId.add(r);
-                }
+        Set<Review> reviewsWithMovieId = new HashSet<>();
+        Iterable<Review> allReviews = reviewRepository.findAll();
+        Double averageRating = 0.0;
+        for (Review r : allReviews) {
+            if (r.getMovie().getId().equals(movie.getId())) {
+                averageRating += r.getRating();
+                reviewsWithMovieId.add(r);
             }
-
-            User user = userRepository.findById(newReview.getUserId()).orElse(null);
-
-            Review review = new Review();
-            review.setRating(newReview.getRating());
-            review.setComment(newReview.getComment());
-            review.setMovie(movie);
-            review.setUser(user);
-            averageRating+= review.getRating();
-            reviewsWithMovieId.add(review);
-
-            averageRating /= reviewsWithMovieId.size();
-
-            averageRating = Math.round(averageRating * 10.0) / 10.0;
-
-            movie.setRating(averageRating);
-
-            movie.setReviews(reviewsWithMovieId);
-
-            // Assuming movieRepository.save(movie) is used to persist changes
-            reviewRepository.save(review);
         }
+
+        User user = userRepository.findById(newReview.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User with ID " + newReview.getUserId() + " not found"));
+
+        Review review = new Review();
+        review.setRating(newReview.getRating());
+        review.setComment(newReview.getComment());
+        review.setMovie(movie);
+        review.setUser(user);
+        averageRating += review.getRating();
+        reviewsWithMovieId.add(review);
+
+        averageRating /= reviewsWithMovieId.size();
+
+        averageRating = Math.round(averageRating * 10.0) / 10.0;
+
+        movie.setRating(averageRating);
+
+        movie.setReviews(reviewsWithMovieId);
+
+        reviewRepository.save(review);
 
         return movie;
     }
