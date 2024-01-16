@@ -78,12 +78,6 @@ public class DefaultMovieService implements MovieService{
                    actors.add(actor);
                }
                movie.setActors(actors);
-               Set<Review> reviews = new HashSet<>();
-               for (Integer reqid : request.getReviewIds()) {
-                   Review review = reviewRepository.findById(reqid).orElse(null);
-                   reviews.add(review);
-               }
-               movie.setReviews(reviews);
                movieRepository.save(movie);
            }
            else {

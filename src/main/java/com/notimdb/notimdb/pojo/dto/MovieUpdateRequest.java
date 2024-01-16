@@ -13,14 +13,13 @@ public class MovieUpdateRequest {
     private Integer directorId;
     private Set<Integer> genresIds;
     private Set<Integer> actorsIds;
-    private Set<Integer> reviewIds;
 
         // Constructors, getters, and setters
 
         public MovieUpdateRequest() {
         }
 
-    public MovieUpdateRequest(String title, LocalDate releaseDate, String description, double rating, String posterUrl, Integer directorId, Set<Integer> genresIds, Set<Integer> actorsIds, Set<Integer> reviewIds) {
+    public MovieUpdateRequest(String title, LocalDate releaseDate, String description, double rating, String posterUrl, Integer directorId, Set<Integer> genresIds, Set<Integer> actorsIds) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.description = description;
@@ -29,7 +28,6 @@ public class MovieUpdateRequest {
         this.directorId = directorId;
         this.genresIds = genresIds;
         this.actorsIds = actorsIds;
-        this.reviewIds = reviewIds;
     }
 
     // Getters and setters
@@ -98,11 +96,4 @@ public class MovieUpdateRequest {
         this.actorsIds = actorsIds;
     }
 
-    public Set<Integer> getReviewIds() {
-        return reviewIds;
-    }
-
-    public void setReviewIds(Set<Integer> reviewIds) {
-        this.reviewIds = reviewIds;
-    }
 }
