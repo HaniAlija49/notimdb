@@ -77,7 +77,7 @@ spring.jpa.show-sql=true
 
 ### Dependencies
 
-```json
+```java
 plugins {
   id 'java'
   id 'org.springframework.boot' version '3.2.1'
@@ -86,6 +86,26 @@ plugins {
 
 group = 'com.notimdb'
 version = '0.0.1-SNAPSHOT'
+
+java {
+  sourceCompatibility = '17'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  runtimeOnly 'com.mysql:mysql-connector-j'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}
+
 ```
 
 <hr>
