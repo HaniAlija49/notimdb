@@ -66,13 +66,6 @@ public class MovieController {
             actors.add(actor);
         }
         movie.setActors(actors);
-//        Set<Review> reviews = new HashSet<>();
-//        for (Integer id:newMovie.getReviewIds()) {
-//            Review review = reviewRepository.findById(id).orElse(null);
-//            reviews.add(review);
-//        }
-//        movie.setReviews(reviews);
-
         return movieService.createMovie(movie);
     }
     @PutMapping("/movies/{id}")

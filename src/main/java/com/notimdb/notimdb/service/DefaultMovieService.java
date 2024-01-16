@@ -1,5 +1,7 @@
 package com.notimdb.notimdb.service;
 
+import com.notimdb.notimdb.DirectorNotFoundException;
+import com.notimdb.notimdb.GenreNotFoundException;
 import com.notimdb.notimdb.InvalidActorIdException;
 import com.notimdb.notimdb.MovieNotFoundException;
 import com.notimdb.notimdb.pojo.dto.MovieUpdateRequest;
@@ -117,7 +119,7 @@ public class DefaultMovieService implements MovieService{
 
     @Override
     public List<Movie> getMovieByGenre(Integer id) {
-        Genre genre = genreRepository.findById(id).orElse(null);
+        Genre genre = genreRepository.findById(id).orElseThrow(() -> new GenreNotFoundException("Genre with ID " + id + " not found"));
         List<Movie> moviesOfGenre = new ArrayList<>();
         for (Movie movie : movieRepository.findAll()) {
             if (movie.getGenres().contains(genre)) {
@@ -129,7 +131,7 @@ public class DefaultMovieService implements MovieService{
 
     @Override
     public List<Movie> getMovieByDirector(Integer id) {
-        Director director = directorRepository.findById(id).orElse(null);
+        Director director = directorRepository.findById(id).orElseThrow(() -> new DirectorNotFoundException("Director with ID " + id + " not found"));
         List<Movie> moviesOfDirector = new ArrayList<>();
         for (Movie movie : movieRepository.findAll()) {
             if (movie.getDirector().equals(director)) {

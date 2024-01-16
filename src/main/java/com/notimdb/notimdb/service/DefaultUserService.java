@@ -1,5 +1,7 @@
 package com.notimdb.notimdb.service;
 
+import com.notimdb.notimdb.MovieNotFoundException;
+import com.notimdb.notimdb.UserNotFountException;
 import com.notimdb.notimdb.pojo.dto.CreateReviewFromUser;
 import com.notimdb.notimdb.pojo.dto.CreateReviewRequest;
 import com.notimdb.notimdb.pojo.entity.Movie;
@@ -42,7 +44,7 @@ public class DefaultUserService implements UserService {
     @Override
     public Movie addMovieReview(Integer id, CreateReviewFromUser newReview) {
         Movie movie = movieRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Movie with ID " + id + " not found"));
+                .orElseThrow(() -> new MovieNotFoundException("Movie with ID " + id + " not found"));
 
         Set<Review> reviewsWithMovieId = new HashSet<>();
         Iterable<Review> allReviews = reviewRepository.findAll();
@@ -55,22 +57,21 @@ public class DefaultUserService implements UserService {
         }
 
         User user = userRepository.findById(newReview.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("User with ID " + newReview.getUserId() + " not found"));
+                .orElseThrow(() -> new UserNotFountException("User with ID " + newReview.getUserId() + " not found"));
 
         Review review = new Review();
         review.setRating(newReview.getRating());
         review.setComment(newReview.getComment());
         review.setMovie(movie);
         review.setUser(user);
-        averageRating += review.getRating();
+
         reviewsWithMovieId.add(review);
 
+        averageRating += review.getRating();
         averageRating /= reviewsWithMovieId.size();
-
         averageRating = Math.round(averageRating * 10.0) / 10.0;
 
         movie.setRating(averageRating);
-
         movie.setReviews(reviewsWithMovieId);
 
         reviewRepository.save(review);
