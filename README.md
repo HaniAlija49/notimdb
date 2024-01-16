@@ -327,7 +327,8 @@ These are the endpoints that we send to: create a new user, get all users, get u
 ```
 <hr>
 This is the endpoint that we use to add a review to a movie from an user. It contains the relationships: user-review and review-movie
-```
+
+```java
  @PostMapping("/users/movie/{id}")
     public Movie addMovieReview(@PathVariable Integer id, @RequestBody CreateReviewFromUser newReview) {
 
